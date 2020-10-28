@@ -1,0 +1,35 @@
+ <h1>Ahorcado 
+  <span class="material-icons"> videogame_asset  </span>
+</h1>  
+  
+
+<form  [formGroup]="ahorcadoForm" (ngSubmit)="checkResultado()">   
+   
+  <p> 
+      <mat-form-field  appearance="standard">
+          <mat-label> Palabra a adivinar: </mat-label>
+          <input matInput maxlength="256" formControlName="palabraIntento" placeholder="Adelante... estoy seguro que perderás..." >
+          <mat-error *ngIf="ahorcadoForm.controls.palabraIntento.touched && ahorcadoForm.controls.palabraIntento.invalid">
+              <span *ngIf="ahorcadoForm.controls.palabraIntento.errors.required">El que no arriesga no gana!</span>  
+          </mat-error>  
+      </mat-form-field>
+  </p>  
+  <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Adivinar</button>
+</form>
+
+
+<h2 *ngIf="resultado"> 
+  Ganaste
+  <span class="material-icons"> emoji_events  </span>
+  <span class="material-icons"> psychology  </span>
+</h2>
+<h2 *ngIf="!resultado  && this.flagSubmit"> 
+  Perdiste :(
+</h2>
+ 
+
+ 
+
+<span class="material-icons"> refresh  </span>
+<span class="material-icons"> sports_kabaddi  </span>
+
