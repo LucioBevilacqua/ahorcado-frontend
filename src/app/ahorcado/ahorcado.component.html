@@ -3,6 +3,21 @@
 </h1>  
   
 
+<button mat-raised-button color="primary">
+  <span class="material-icons"> refresh  </span>
+  Reiniciar juego
+</button>
+
+<button mat-raised-button color="primary">
+  <span class="material-icons"> sports_kabaddi  </span>
+  Multijugador
+</button>
+
+<br>
+<br> 
+
+<h2 class="md-display-4">A jugar !</h2>
+
 <form  [formGroup]="ahorcadoForm" (ngSubmit)="checkResultado()">   
    
   <p> 
@@ -25,11 +40,4 @@
 </h2>
 <h2 *ngIf="!resultado  && this.flagSubmit"> 
   Perdiste :(
-</h2>
- 
-
- 
-
-<span class="material-icons"> refresh  </span>
-<span class="material-icons"> sports_kabaddi  </span>
-
+</h2> 
