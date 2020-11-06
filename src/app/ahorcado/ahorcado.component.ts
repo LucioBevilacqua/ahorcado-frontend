@@ -35,6 +35,9 @@ export class AhorcadoComponent implements OnInit {
   getPalabra(){
     this.ahorcadoService.getPalabra().subscribe({
       next: res =>{ 
+        console.log('res');
+        console.log('res',res);
+        console.log('res[]',res[0]);
         this.dataAhorcado = res[0]; 
         this.ahorcadoForm.patchValue({ 
           palabraAAdivinar: res[0].palabra,

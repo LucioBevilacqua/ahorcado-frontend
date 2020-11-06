@@ -32,6 +32,8 @@
   <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Adivinar</button>
 </form>
 
+{{ ahorcadoForm.value.palabraAAdivinar}}
+
 
 <h2 *ngIf="resultado"> 
   Ganaste

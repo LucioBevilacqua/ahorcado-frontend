@@ -7,16 +7,16 @@ import { Observable, of } from 'rxjs';
 })
 export class AhorcadoService {
 
-  private baseUrl = 'http://localhost:8080/api/ahorcado';
+  private baseUrl = 'https://localhost:8080/api/Ahorcado';
 
-  constructor(private httpService: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  getPalabra(): Observable<any[]> { //todo
-    //return this.httpService.get<any[]>(this.baseUrl);
-    return of([
-      //{"id": 1,"descripcion": "Crítica" }
-      {"palabra": "Automovil" }
-    ]);
+  getPalabra(): Observable<any[]> { //todo  
+  return this.httpClient.get<any[]>('https://localhost:44365/api/Ahorcado/inicio');
+    // return of([
+    //   //{"id": 1,"descripcion": "Crítica" }
+    //   {"palabra": "Automovil" }
+    // ]);
   }
 
 
