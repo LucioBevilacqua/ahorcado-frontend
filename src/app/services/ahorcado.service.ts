@@ -7,23 +7,24 @@ import { Observable, of } from 'rxjs';
 })
 export class AhorcadoService {
 
-  private baseUrl = 'https://localhost:8080/api/Ahorcado';
+  private baseUrl = 'https://d4aac039b72d.ngrok.io/api/Ahorcado/';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getPalabra(): Observable<any[]> { //todo  
-  return this.httpClient.get<any[]>('https://localhost:44365/api/Ahorcado/inicio');
-    // return of([
-    //   //{"id": 1,"descripcion": "Crítica" }
-    //   {"palabra": "Automovil" }
-    // ]);
+  /// Trae la palabra inicial para comenzar el juego
+  getPalabra(): Observable<object> {
+    return this.http.get(this.baseUrl + 'inicio', { responseType: 'json' });
+    /*return of([
+      //{"id": 1,"descripcion": "Crítica" }
+      {"palabra": "Automovil" }
+    ]);*/
   }
 
 
-  
-  //isValid(): Observable<any[]>{   //todo
-    //return this.httpClient.get<Ahorcado[]>(this.baseUrl);
-  //}
+
+  // isValid(): Observable<any[]>{   //todo
+  // return this.httpClient.get<Ahorcado[]>(this.baseUrl);
+  // }
 }
 
 
