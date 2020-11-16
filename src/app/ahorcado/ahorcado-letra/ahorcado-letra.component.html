@@ -1,31 +1,39 @@
- 
- 
-  <form  [formGroup]="ahorcadoForm" (ngSubmit)="arriesgaLetra()">   
-    <p> 
-        <mat-form-field  appearance="standard">
-            <mat-label> Letra a adivinar: </mat-label>
-            <input  matInput 
-                    maxlength="1" 
-                    formControlName="letraIntento" 
-                    placeholder="Adelante... estoy seguro que perderás..." >
-            <mat-error *ngIf="ahorcadoForm.controls.letraIntento.touched && ahorcadoForm.controls.letraIntento.invalid">
-                <span *ngIf="ahorcadoForm.controls.letraIntento.errors.required">El que no arriesga no gana!</span>  
-            </mat-error>  
-        </mat-form-field>
-    </p>  
-    <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Intentar letra</button>
-  </form>
+<form  [formGroup]="ahorcadoForm" (ngSubmit)="arriesgaLetra()">   
+  <p> 
+      <mat-form-field  appearance="standard">
+          <mat-label> Letra a adivinar: </mat-label>
+          <input  matInput 
+                  maxlength="1" 
+                  formControlName="letraIntento" 
+                  placeholder="Adelante... estoy seguro que perderás..." >
+          <mat-error *ngIf="ahorcadoForm.controls.letraIntento.touched && ahorcadoForm.controls.letraIntento.invalid">
+              <span *ngIf="ahorcadoForm.controls.letraIntento.errors.required">El que no arriesga no gana!</span>  
+          </mat-error>  
+      </mat-form-field>
+  </p>  
+  <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Intentar letra</button>
+</form>
    
- 
-  <img  width="250" alt="image" src={{vidaImagen}}  > 
+{{intentosRestantes}} 
 
-  <mat-chip-list aria-label="Fish selection" *ngFor="let letra of letrasArriesgadas "> 
-    <mat-chip color="primary" selected >{{letra}}  </mat-chip>
+  <img width="250" alt="image" src={{vidaImagen}}  > 
+
+  <mat-chip-list aria-label="Fish selection" > 
+    <mat-chip *ngFor="let letra of letrasCorrectas" color="primary" selected >
+      {{letra}}  
+    </mat-chip>
   </mat-chip-list>
-<!-- 
-<mat-chip-list>
-  <mat-chip>  Ejemplos  </mat-chip> 
-  <mat-chip color="primary" selected >ok </mat-chip>
-  <mat-chip color="accent" selected>no ok</mat-chip>
-</mat-chip-list> -->
-  
+  <mat-chip-list aria-label="Fish selection" > 
+    <mat-chip *ngFor="let letra of letrasIncorrectas" color="primary" selected >
+      {{letra}}  
+    </mat-chip>
+  </mat-chip-list>
+
+  <h2 *ngIf="resultado.Success"> 
+    {{resultado.Info}}
+    <span class="material-icons"> emoji_events  </span>
+    <span class="material-icons"> psychology  </span>
+  </h2>
+  <h2 *ngIf="!resultado.Value  && resultado.Success"> 
+    {{resultado.Info}}
+  </h2> 

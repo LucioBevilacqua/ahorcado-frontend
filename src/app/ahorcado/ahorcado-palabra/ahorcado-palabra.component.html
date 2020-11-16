@@ -20,16 +20,14 @@
     </p>  
     <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Adivinar</button>
   </form>
-  
-  
-  
-  <h2 *ngIf="resultado"> 
-    Ganaste
+   
+  <h2 *ngIf="resultado.Success"> 
+    {{resultado.Info}}
     <span class="material-icons"> emoji_events  </span>
     <span class="material-icons"> psychology  </span>
   </h2>
-  <h2 *ngIf="!resultado  && this.flagSubmit"> 
-    Perdiste :(
+  <h2 *ngIf="!resultado.Value  && resultado.Success"> 
+    {{resultado.Info}}
   </h2> 
 
  

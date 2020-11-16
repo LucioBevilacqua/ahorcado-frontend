@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Ahorcado } from 'src/app/model/ahorcado';
+import { Ahorcado, Resultado } from 'src/app/model/ahorcado';
 import { AhorcadoService } from 'src/app/services/ahorcado.service';
 
 @Component({
   selector: 'app-ahorcado-letra',
   templateUrl: './ahorcado-letra.component.html',
-  styleUrls: ['./ahorcado-letra.component.css']
+  styleUrls: ['./ahorcado-letra.component.scss']
 })
 export class AhorcadoLetraComponent implements OnInit {
 
-  flagSubmit = false;
-  resultado: boolean;
+  flagSubmit = false; 
   ahorcadoForm: FormGroup;
   dataAhorcado: Ahorcado = {
     palabraAAdivinar: ''
   };
+  resultado: Resultado =  {
+    Success : false,
+    Value : '',
+    Info : '',
+};
   letrasArriesgadas: Array<any> = [];
 
   URL_IMAGENES_PRE = "assets/"
@@ -24,9 +28,11 @@ export class AhorcadoLetraComponent implements OnInit {
   mascara;
   abecedario = [];
   cantidadVidas: number = 4;
-  letrasUsadas = "";
-  mensaje = "¿Qué desea hacer?";
+  letrasUsadas = ""; 
   vidaImagen = this.URL_IMAGENES_PRE+"ahorcadoinicial"+this.URL_IMAGENES_EXT; //URL imagen cambiante durante los fallos en el juego
+  letrasCorrectas: String[] = [];
+  letrasIncorrectas: String[] = [];
+  intentosRestantes: number = 0;
 
   constructor(
     private ahorcadoService: AhorcadoService
@@ -42,34 +48,27 @@ export class AhorcadoLetraComponent implements OnInit {
     } );
   } 
 
-  arriesgaLetra(): void {
+  arriesgaLetra(): void { 
     let letra: string = this.ahorcadoForm.value.letraIntento;
-    // this.ahorcadoService.arriesgaLetra(letra).subscribe({
-    //   next: res => { 
-    //     console.log(res);
-    //     const parsedRes: any = JSON.parse(JSON.stringify(res)); 
-    //     this.dataAhorcado.palabraAAdivinar = parsedRes.value;
-        // this.ahorcadoForm.patchValue({
-        //   palabraAAdivinar: res,
-        // });
-    //   }
-    // });
+    this.ahorcadoService.arriesgaLetra(letra)
+      .subscribe({
+        next: res => { 
+          // console.log(JSON.parse(JSON.stringify(res)));
+          // console.log(res);
+          this.resultado=res; 
+          this.getLetrasCorrectas();
+          this.getLetrasIncorrectas();
+          this.getIntentosRestantes();
+        } 
+      });
 
-    this.letrasArriesgadas.push(letra);
-    if(letra==='a' || letra==='c' || letra==='b'){
-      this.cantidadVidas = this.cantidadVidas - 1;
-    }
-    this.vidas();
 
-    //this.initForm();
-    
-  }
-
-  checkResultado(): void { // palabraIntento: string
-  //  this.resultado = this.ahorcadoForm.value.palabraAAdivinar.Value === this.ahorcadoForm.value.palabraIntento;
-    this.flagSubmit = true;
-  }
-
+      this.letrasArriesgadas.push(letra);
+      if(letra==='a' || letra==='c' || letra==='b'){
+        this.cantidadVidas = this.cantidadVidas - 1;
+      }
+      this.vidas();
+  }  
   vidas() {
     switch(this.cantidadVidas) {
         case 4:
@@ -93,4 +92,29 @@ export class AhorcadoLetraComponent implements OnInit {
       }
 
 
+  // getPalabra(): void { 
+  // }
+  
+  getLetrasIncorrectas(): void {
+    this.ahorcadoService.getLetrasIncorrectas().subscribe({
+      next: res => { 
+        this.letrasIncorrectas = res;        
+      } 
+    });
+  }
+  getLetrasCorrectas(): void {
+    this.ahorcadoService.getLetrasCorrectas().subscribe({
+      next: res => { 
+        console.log(res);
+        this.letrasCorrectas = res;
+      } 
+    });
+  }
+  getIntentosRestantes(): void {
+    this.ahorcadoService.getIntentosRestantes().subscribe({
+      next: res => {  
+        this.intentosRestantes = res;
+      } 
+    });
+  }
 }

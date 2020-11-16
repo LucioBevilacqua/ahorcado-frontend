@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { PalabraInput } from '../model/ahorcado';
+import { PalabraInput, Resultado } from '../model/ahorcado';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AhorcadoService {
 
   private baseUrl = 'https://localhost:44365/api/Ahorcado/';
@@ -17,43 +18,48 @@ export class AhorcadoService {
     return this.http.get(this.baseUrl + 'inicio', { responseType: 'json' }); 
   }
   /// Arriesga la palabra ingresada por el usuario
-  arriesgaPalabra(request: PalabraInput): Observable<any> {
-    let body = JSON.stringify(request);
-    // const httpOptions = {
-    //   headers: new HttpHeaders({'Content-Type': 'application/json'})
-    // }
-    // console.log('request', request );
-    // console.log('bdy sa' ,body );
-
-    let bodyy: any = {
-      Palabra: request
+  arriesgaPalabra(palabraArriesgada: PalabraInput): Observable<Resultado> { 
+    let body: any = {
+      Palabra: palabraArriesgada
     }
-    console.log('bodyy' ,bodyy );
-    console.log('JSON.stringify(bodyy)' ,JSON.stringify(bodyy) );  
- 
-
-
-    return this.http.post<any>(
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }  
+    // console.log('bodyy' ,bodyy );
+    // console.log('JSON.stringify(bodyy)' ,JSON.stringify(bodyy) );  
+  
+    return this.http.post<Resultado>(
       this.baseUrl + 'arriesgaPalabra'
-      , JSON.stringify(bodyy) 
-      // , httpOptions
+      , JSON.stringify(body) 
+      , httpOptions
     ); 
   } 
 
   /// Arriesga una letra ingresada por el usuario para verificar si existe en la palabra a adivinar
-  arriesgaLetra(letra: string): Observable<object> {
-    let params: any = { string: letra  }
-    //return this.http.post(this.baseUrl + 'inicio', { responseType: 'json' });
-    return of([
-      {"palabra": "Automovil" }
-    ]);
+  arriesgaLetra(letra: string): Observable<Resultado> {
+    let body: any = {
+      Palabra: letra
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }  
+    return this.http.post<Resultado>(
+      this.baseUrl + 'arriesgaLetra'
+      , JSON.stringify(body) 
+      , httpOptions
+    ); 
   }
 
 
-
-  // isValid(): Observable<any[]>{   //todo
-  // return this.httpClient.get<Ahorcado[]>(this.baseUrl);
-  // }
+ 
+  getLetrasIncorrectas(): Observable<any> {
+    return this.http.get(this.baseUrl + 'letrasIncorrectas', { responseType: 'json' }); 
+  } 
+  getLetrasCorrectas(): Observable<any> {
+    return this.http.get(this.baseUrl + 'letrasCorrectas', { responseType: 'json' }); 
+  }  
+  getIntentosRestantes(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'intentosRestantes', { responseType: 'json' }); 
+  } 
+  
 }
-
-
