@@ -30,7 +30,7 @@ export class AhorcadoService {
   
     return this.http.post<Resultado>(
       this.baseUrl + 'arriesgaPalabra'
-      , JSON.stringify(body) 
+      , body
       , httpOptions
     ); 
   } 
@@ -38,20 +38,21 @@ export class AhorcadoService {
   /// Arriesga una letra ingresada por el usuario para verificar si existe en la palabra a adivinar
   arriesgaLetra(letra: string): Observable<Resultado> {
     let body: any = {
-      Palabra: letra
+      Letra: letra
     }
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }  
     return this.http.post<Resultado>(
       this.baseUrl + 'arriesgaLetra'
-      , JSON.stringify(body) 
+      , body
       , httpOptions
     ); 
-  }
-
-
+  } 
  
+  getEstadoJuego(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'estado', { responseType: 'json' } ); 
+  }
   getLetrasIncorrectas(): Observable<any> {
     return this.http.get(this.baseUrl + 'letrasIncorrectas', { responseType: 'json' }); 
   } 

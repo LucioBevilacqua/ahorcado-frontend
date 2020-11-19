@@ -10,30 +10,8 @@
               <span *ngIf="ahorcadoForm.controls.letraIntento.errors.required">El que no arriesga no gana!</span>  
           </mat-error>  
       </mat-form-field>
-  </p>  
-  <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Intentar letra</button>
-</form>
-   
-{{intentosRestantes}} 
-
-  <img width="250" alt="image" src={{vidaImagen}}  > 
-
-  <mat-chip-list aria-label="Fish selection" > 
-    <mat-chip *ngFor="let letra of letrasCorrectas" color="primary" selected >
-      {{letra}}  
-    </mat-chip>
-  </mat-chip-list>
-  <mat-chip-list aria-label="Fish selection" > 
-    <mat-chip *ngFor="let letra of letrasIncorrectas" color="primary" selected >
-      {{letra}}  
-    </mat-chip>
-  </mat-chip-list>
-
-  <h2 *ngIf="resultado.Success"> 
-    {{resultado.Info}}
-    <span class="material-icons"> emoji_events  </span>
-    <span class="material-icons"> psychology  </span>
-  </h2>
-  <h2 *ngIf="!resultado.Value  && resultado.Success"> 
-    {{resultado.Info}}
-  </h2> 
+  </p>   
+  <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid" >
+    Intentar letra
+  </button>
+</form> 

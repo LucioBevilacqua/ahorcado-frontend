@@ -1,48 +1,68 @@
-
-
-
-<!-- <h1>Ahorcado 
+<h1>Ahorcado 
   <span class="material-icons"> videogame_asset  </span>
-</h1>  
-  
+</h1> 
+ 
+  <button mat-raised-button color="primary" (click)="this.recargaJuego()">
+    <span class="material-icons"> refresh  </span>
+    Reiniciar juego
+  </button> 
 
-<button mat-raised-button color="primary">
-  <span class="material-icons"> refresh  </span>
-  Reiniciar juego
-</button>
+  <br><br> 
 
-<button mat-raised-button color="primary">
-  <span class="material-icons"> sports_kabaddi  </span>
-  Multijugador
-</button>
-
-<br>
-<br> 
-
-<h2 class="md-display-4">A jugar !</h2>
-<h1>{{dataAhorcado.palabraAAdivinar}} </h1>
-<form  [formGroup]="ahorcadoForm" (ngSubmit)="checkResultado()">   
-   
+  <!-- <h1>{{tituloTipoJuego()}}</h1>  -->
   <p> 
-      <mat-form-field  appearance="standard">
-          <mat-label> Palabra a adivinar: </mat-label>
-          <input matInput maxlength="256" formControlName="palabraIntento" placeholder="Adelante... estoy seguro que perderás..." >
-          <mat-error *ngIf="ahorcadoForm.controls.palabraIntento.touched && ahorcadoForm.controls.palabraIntento.invalid">
-              <span *ngIf="ahorcadoForm.controls.palabraIntento.errors.required">El que no arriesga no gana!</span>  
-          </mat-error>  
-      </mat-form-field>
-  </p>  
-  <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Adivinar</button>
-</form>
+    Tipo juego
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style"> 
+      <mat-button-toggle (change)="setTipoJuego($event.value)" value=1 matTooltip="Por Palabra Completa" >Por palabra</mat-button-toggle>
+      <mat-button-toggle (change)="setTipoJuego($event.value)" value=2 matTooltip="Por letra">Por letra</mat-button-toggle>
+      <mat-button-toggle (change)="setTipoJuego($event.value)" value=3 matTooltip="Juego multijugador">1 vs 1</mat-button-toggle>
+    </mat-button-toggle-group>
+  </p>
 
-{{ ahorcadoForm.value.palabraAAdivinar}}
+<div class="container"  >
+  <div class="row" > 
+    He fracasado, decime la palabra
+    <div *ngIf="flagMostrarPalabra">
+      <h3>{{  this.palabraAAdivinar  }} </h3>
+    </div> 
+    <button mat-raised-button color="primary" type="submit" (click)="this.setFlagMostrarPalabra()"  > 
+      <span mat-raised-button color="primary" class="material-icons">
+        visibility
+      </span>
+    </button>
+  </div>
+</div>
 
-
-<h2 *ngIf="resultado"> 
-  Ganaste
-  <span class="material-icons"> emoji_events  </span>
-  <span class="material-icons"> psychology  </span>
-</h2>
-<h2 *ngIf="!resultado  && this.flagSubmit"> 
-  Perdiste :(
-</h2>  -->
+<h3>
+    Intentos restantes:  {{intentosRestantes}} 
+</h3>
+  
+    <img width="250" alt="image" src={{vidaImagen}}  > 
+  
+    <mat-chip-list aria-label="Fish selection" > 
+      <mat-chip *ngFor="let letra of letrasCorrectas" color="primary" selected >
+        {{letra}}  
+      </mat-chip>
+    </mat-chip-list>
+    <mat-chip-list aria-label="Fish selection" > 
+      <mat-chip *ngFor="let letra of letrasIncorrectas" color="warn" selected >
+        {{letra}}  
+      </mat-chip>
+    </mat-chip-list>
+  
+    <h2 *ngIf="resultado.Value"> 
+      {{resultado.Value}}
+      <span class="material-icons"> emoji_events  </span>
+      <span class="material-icons"> psychology  </span>
+    </h2> 
+  
+<app-ahorcado-letra
+    (flagSubmitChange)="onDataChange($event)"
+    *ngIf="esPorLetra()"
+    > 
+</app-ahorcado-letra>
+<app-ahorcado-palabra
+    (flagSubmitChange)="onDataChange($event)"
+    *ngIf="esPorPalabraCompleta()"> 
+</app-ahorcado-palabra>
+ 

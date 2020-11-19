@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Ahorcado, PalabraInput, Resultado } from '../../model/ahorcado';
 import { AhorcadoService } from '../../services/ahorcado.service';
@@ -10,7 +10,9 @@ import { AhorcadoService } from '../../services/ahorcado.service';
 })
 export class AhorcadoPalabraComponent implements OnInit {
 
-  flagSubmit = false;
+  @Output() flagSubmitChange = new EventEmitter<number>();  
+  reload : number = 0;
+  //flagSubmit = false;
   resultado: Resultado =  {
     Success : false,
     Value : '',
@@ -27,39 +29,23 @@ export class AhorcadoPalabraComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.getPalabra();
+  //  this.getPalabra();
   }
 
   initForm(): void {
     this.ahorcadoForm = new FormGroup({
-      palabraIntento: new FormControl('', [Validators.required]),
-      palabraAAdivinar: new FormControl('', [Validators.required]),
+      palabraIntento: new FormControl('', [Validators.required]), 
     });
   }
 
-  getPalabra(): void {
-    this.ahorcadoService.getPalabra().subscribe({
-      next: res => { 
-        const parsedRes: any = JSON.parse(JSON.stringify(res)); 
-        console.log('parsedRes',parsedRes); 
-        this.ahorcadoForm.patchValue({
-          palabraAAdivinar: res,
-        });
-      } 
-    });
-  }
   arriesgaPalabra(): void { 
     this.ahorcadoService.arriesgaPalabra(  
         this.ahorcadoForm.value.palabraIntento
       ).subscribe({
-        next: res => { 
-          console.log(JSON.parse(JSON.stringify(res)));
-          console.log(res);
-          this.resultado=res;
-          
-          // const parsedRes: any = JSON.parse(JSON.stringify(res)); 
-
-          // console.log('parsedRes',parsedRes); 
+        next: res => {  
+          this.resultado=res; 
+          this.reload = this.reload  + 1;
+          this.flagSubmitChange.emit(this.reload );
         } 
       });
   }
@@ -67,13 +53,29 @@ export class AhorcadoPalabraComponent implements OnInit {
   //   this.resultado = this.ahorcadoForm.value.palabraAAdivinar.Value === this.ahorcadoForm.value.palabraIntento;
   //   this.flagSubmit = true;
   // }
-  recargaJuego(){ 
-    console.log('recarga');
-    this.getPalabra();
-    this.limpiaMensajes();
-  }
+  // getPalabra(): void {
+  //   this.ahorcadoService.getPalabra().subscribe({
+  //     next: res => { 
+  //       const parsedRes: any = JSON.parse(JSON.stringify(res)); 
+  //       console.log('parsedRes',parsedRes); 
+  //       this.ahorcadoForm.patchValue({
+  //         palabraAAdivinar: res,
+  //       });
+  //     } 
+  //   });
+  // }
+  // recargaJuego(){ 
+  //   console.log('recarga');
+  //   this.getPalabra();
+  //   this.limpiaMensajes();
+  // }
 
-  limpiaMensajes(){
-    this.resultado = {Value:'', Info:'', Success: false};
+  // limpiaMensajes(){
+  //   this.resultado = {Value:'', Info:'', Success: false};
+  // }
+
+  
+  onDataChange(){ 
+    this.flagSubmitChange.emit(1);
   }
 }

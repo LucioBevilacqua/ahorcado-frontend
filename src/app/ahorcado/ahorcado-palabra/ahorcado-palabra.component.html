@@ -1,33 +1,14 @@
- 
-  <h1>{{dataAhorcado.palabraAAdivinar}} </h1>
-  Palabra oculta a adivinar: {{  this.ahorcadoForm.value.palabraAAdivinar.Value }}
-
-
-  <button mat-raised-button color="primary" (click)="this.recargaJuego()">
-    <span class="material-icons"> refresh  </span>
-    Reiniciar juego
-  </button>
-
-  <form  [formGroup]="ahorcadoForm" (ngSubmit)="arriesgaPalabra()">   
-    <p> 
-        <mat-form-field  appearance="standard">
-            <mat-label> Palabra a adivinar: </mat-label>
-            <input matInput maxlength="256" formControlName="palabraIntento" placeholder="Adelante... estoy seguro que perderás..." >
-            <mat-error *ngIf="ahorcadoForm.controls.palabraIntento.touched && ahorcadoForm.controls.palabraIntento.invalid">
-                <span *ngIf="ahorcadoForm.controls.palabraIntento.errors.required">El que no arriesga no gana!</span>  
-            </mat-error>  
-        </mat-form-field>
-    </p>  
-    <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Adivinar</button>
-  </form>
-   
-  <h2 *ngIf="resultado.Success"> 
-    {{resultado.Info}}
-    <span class="material-icons"> emoji_events  </span>
-    <span class="material-icons"> psychology  </span>
-  </h2>
-  <h2 *ngIf="!resultado.Value  && resultado.Success"> 
-    {{resultado.Info}}
-  </h2> 
-
+<form  [formGroup]="ahorcadoForm" (ngSubmit)="arriesgaPalabra()">   
+  <p> 
+      <mat-form-field  appearance="standard">
+          <mat-label> Palabra a adivinar: </mat-label>
+          <input matInput maxlength="256" formControlName="palabraIntento" placeholder="Adelante... estoy seguro que perderás..." >
+          <mat-error *ngIf="ahorcadoForm.controls.palabraIntento.touched && ahorcadoForm.controls.palabraIntento.invalid">
+              <span *ngIf="ahorcadoForm.controls.palabraIntento.errors.required">El que no arriesga no gana!</span>  
+          </mat-error>  
+      </mat-form-field>
+  </p>  
+  <button mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Adivinar</button>
+</form>
+    
  
