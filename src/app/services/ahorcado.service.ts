@@ -9,7 +9,8 @@ import { PalabraInput, Resultado } from '../model/ahorcado';
 
 export class AhorcadoService {
 
-  private baseUrl = 'http://localhost:5000/api/Ahorcado/';
+  //private baseUrl = 'http://localhost:5000/api/Ahorcado/';
+  private baseUrl = 'https://localhost:44365/api/Ahorcado/';
 
   constructor(private http: HttpClient) { }
 
@@ -24,10 +25,7 @@ export class AhorcadoService {
     }
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
-    }  
-    // console.log('bodyy' ,bodyy );
-    // console.log('JSON.stringify(bodyy)' ,JSON.stringify(bodyy) );  
-  
+    } 
     return this.http.post<Resultado>(
       this.baseUrl + 'arriesgaPalabra'
       , body

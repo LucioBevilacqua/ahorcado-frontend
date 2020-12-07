@@ -52,7 +52,7 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log('ngOnChanges');
+    // console.log('ngOnChanges');
     this.getEstadoJuego();
   }
 
@@ -62,20 +62,20 @@ export class AhorcadoComponent implements OnInit, OnChanges {
     this.getEstadoJuego();
     this.getLetrasIncorrectas();
     this.getLetrasCorrectas();
-    this.getIntentosRestantes();
-    this.vidas();
+    this.getIntentosRestantes(); 
   }
 
   getEstadoJuego(): void {
-    console.log('GetEstadoJuego');
+    // console.log('GetEstadoJuego');
     this.ahorcadoService.getEstadoJuego().subscribe({
       next: res => {
         this.resultado = res;
+        this.vidas();
       }
     });
   }
   setTipoJuego(event): void {
-    console.log('se cambia tipo juego', event);
+    // console.log('se cambia tipo juego', event);
     this.flagTipoJuego = parseInt(event, 10);
   }
   tituloTipoJuego(): string {
@@ -93,16 +93,17 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   }
 
   recargaJuego(): void {
-    console.log('recarga');
+    // console.log('recarga');
     this.getPalabra();
-    this.limpiaMensajes();
+    this.limpiaJuego();
   }
 
-  limpiaMensajes(): void {
+  limpiaJuego(): void {
     this.resultado = { Value: '', Info: '', Success: false };
     this.intentosRestantes = null;
     this.letrasCorrectas = null;
     this.letrasIncorrectas = null;
+    this.vidaImagen = this.URL_IMAGENES_PRE + 'ahorcadoinicial' + this.URL_IMAGENES_EXT;
   }
 
   setFlagMostrarPalabra(): void {
@@ -128,8 +129,8 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   getIntentosRestantes(): void {
     this.ahorcadoService.getIntentosRestantes().subscribe({
       next: res => {
-        console.log('getIntentosRestantes');
-        console.log(res);
+        // console.log('getIntentosRestantes');
+        // console.log(res);
         this.intentosRestantes = res;
       }
     });
@@ -155,9 +156,9 @@ export class AhorcadoComponent implements OnInit, OnChanges {
           break;
       }
     }
-    if (this.flagTipoJuego === tipoJuego.PorPalabraCompleta && this.resultado.Value === 'Perdiste!') {
+    else if (this.flagTipoJuego === tipoJuego.PorPalabraCompleta && this.resultado.Value === 'Perdiste!') {
       this.vidaImagen = this.URL_IMAGENES_PRE + 'ahorcadocompleto' + this.URL_IMAGENES_EXT;
-      console.log(this.vidaImagen);
+      // console.log(this.vidaImagen);
     }
   }
 
