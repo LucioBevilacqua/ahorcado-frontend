@@ -9,7 +9,7 @@ import { PalabraInput, Resultado } from '../model/ahorcado';
 
 export class AhorcadoService {
 
-  private baseUrl = 'https://localhost:44365/api/Ahorcado/';
+  private baseUrl = 'http://localhost:5000/api/Ahorcado/';
 
   constructor(private http: HttpClient) { }
 
