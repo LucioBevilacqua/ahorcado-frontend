@@ -35,23 +35,30 @@ describe('AhorcadoComponent', () => {
   it('debería generar la palabra a Adivinar', () => {
     const palabra = component.getPalabra();
     console.log(component.palabraAAdivinar);
-    component.palabraoculta = component.palabraAAdivinar;
+    //component.palabraoculta = component.palabraAAdivinar;
     expect(palabra).not.toBeNull();
   });
 
   it('debería generar un nuevo juego', () => {
     component.getPalabra();
-    console.log(component.palabraAAdivinar);
+    //console.log(component.palabraAAdivinar);
 
     expect(component.intentosRestantes).toEqual(4);
     expect(component.palabraAAdivinar).not.toBeUndefined();
-    component.palabraoculta = component.palabraAAdivinar;
     expect(component.letrasCorrectas).toEqual([]);
-    const cantidaddeletrasiguales = (component.palabraoculta.length === component.palabraAAdivinar.length);
-    expect(cantidaddeletrasiguales).toBeTrue();
-    console.log(cantidaddeletrasiguales);
-    // expect(component.intentosRestantes).toEqual([]);
+    // component.palabraoculta = component.palabraAAdivinar;
+    // const cantidaddeletrasiguales = (component.palabraoculta.length === component.palabraAAdivinar.length);
+    // expect(cantidaddeletrasiguales).toBeTrue(); 
 
   });
 
+  it('debería ingresar una letra y validarla',() => {
+    component.getPalabra();
+    
+    let letra = component.palabraAdivinar[0];;
+    component.CoincideLetra(letra);
+
+    let letraAdivinada = component.palabraAdivinar.includes(letra);
+    expect(letraAdivinada).toBeTruthy();
+  })
 });

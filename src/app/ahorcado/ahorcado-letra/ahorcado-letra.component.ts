@@ -12,19 +12,14 @@ export class AhorcadoLetraComponent implements OnInit {
 
   @Output() flagSubmitChange = new EventEmitter<number>();  
   flagSubmit = false; 
-  ahorcadoForm: FormGroup;
-//   dataAhorcado: Ahorcado = {
-//     palabraAAdivinar: ''
-//   };
+  ahorcadoForm: FormGroup; 
   resultado: Resultado =  {
     Success : false,
     Value : '',
     Info : '',
-};
+  };
   reload: number = 0;
 
-//   letrasArriesgadas: Array<any> = [];
- 
   constructor(
     private ahorcadoService: AhorcadoService
   ) { }
@@ -45,12 +40,11 @@ export class AhorcadoLetraComponent implements OnInit {
       .subscribe({
         next: res => { 
           this.resultado=res; 
-          this.reload = this.reload  + 1;
+          this.reload = this.reload + 1;
           this.flagSubmitChange.emit(this.reload );
         } 
       }); 
   }  
-
   onDataChange(){ 
     this.flagSubmitChange.emit(1);
   } 
