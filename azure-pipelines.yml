@@ -22,5 +22,26 @@ steps:
     displayName: "npm install and build"
 
   - script: |
-      npx ng test --watch=false
+      npx ng test --watch=false --codeCoverage=true
     displayName: "Run integration tests"
+
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/TESTS-*.xml'
+    displayName: 'Publish Test Results' 
+
+  - task: PublishCodeCoverageResults@1
+    condition: succeededOrFailed()
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(Build.SourcesDirectory)/coverage/ng-azure-devops/cobertura-coverage.xml'
+    displayName: 'Publish Code Coverage Results'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'dist/ng-azure-devops'
+      ArtifactName: 'web-app'
+      publishLocation: 'Container'
+    displayName: 'Publish Artifacts'
