@@ -10,7 +10,7 @@ import { PalabraInput, Resultado } from '../model/ahorcado';
 export class AhorcadoService {
 
   //private baseUrl = 'http://localhost:5000/api/Ahorcado/';
-  private baseUrl = 'https://localhost:44365/api/Ahorcado/';
+  private baseUrl = 'https://b1102d067321.ngrok.io/api/Ahorcado/';
 
   constructor(private http: HttpClient) { }
 
