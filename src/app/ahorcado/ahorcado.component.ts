@@ -23,7 +23,7 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   // URL imagen cambiante durante los fallos en el juego
   vidaImagen: string = this.URL_IMAGENES_PRE + 'ahorcadoinicial' + this.URL_IMAGENES_EXT;
   palabraoculta: string;
-  cantidadVidas = 4;
+  // cantidadVidas = 4;
   flagSubmitChange = 0;
   flagMostrarPalabra = false;
 
@@ -132,6 +132,7 @@ export class AhorcadoComponent implements OnInit, OnChanges {
         // console.log('getIntentosRestantes');
         // console.log(res);
         this.intentosRestantes = res;
+        this.vidas();
       }
     });
   }
