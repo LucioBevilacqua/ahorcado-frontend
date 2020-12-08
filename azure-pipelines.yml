@@ -24,3 +24,9 @@ steps:
 - script: |
     ng test
   displayName: 'Run integration tests'
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TESTS-*.xml'
+  displayName: 'Publish Test Results'
