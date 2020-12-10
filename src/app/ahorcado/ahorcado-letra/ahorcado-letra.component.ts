@@ -27,19 +27,17 @@ export class AhorcadoLetraComponent implements OnInit {
   ngOnInit(): void {
     this.initForm(); 
   }
-
   initForm(): void {
     this.ahorcadoForm = new FormGroup({
       letraIntento: new FormControl('', [Validators.required]) 
     } );
   } 
-
   arriesgaLetra(): void { 
     let letra: string = this.ahorcadoForm.value.letraIntento;
     this.ahorcadoService.arriesgaLetra(letra)
       .subscribe({
         next: res => { 
-          this.resultado=res; 
+          this.resultado = res; 
           this.reload = this.reload + 1;
           this.flagSubmitChange.emit(this.reload );
         } 

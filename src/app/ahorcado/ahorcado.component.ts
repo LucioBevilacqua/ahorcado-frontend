@@ -42,7 +42,7 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   }
 
   getPalabra(): void {
-    console.log('getpalabra');
+    //console.log('getpalabra');
     this.ahorcadoService.getPalabra().subscribe({
       next: res => {
         const parsedRes: any = JSON.parse(JSON.stringify(res));

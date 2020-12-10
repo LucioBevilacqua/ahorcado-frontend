@@ -1,13 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AhorcadoComponent } from './ahorcado.component';
+import { AhorcadoLetraComponent } from './ahorcado-letra/ahorcado-letra.component'; 
+import { AhorcadoPalabraComponent } from './ahorcado-palabra/ahorcado-palabra.component'; 
 // Http testing module and mocking controller
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Ahorcado } from '../model/ahorcado';
 
 describe('AhorcadoComponent', () => {
   let component: AhorcadoComponent;
+  let componentAhorcadoLetra: AhorcadoLetraComponent;
+  //let componentAhorcadoPalabra: AhorcadoPalabraComponent;
   let fixture: ComponentFixture<AhorcadoComponent>;
+  let fixturePorLetra: ComponentFixture<AhorcadoLetraComponent>;
 
   beforeEach(async () => {
     let httpClient: HttpClient;
@@ -26,10 +32,15 @@ describe('AhorcadoComponent', () => {
     fixture = TestBed.createComponent(AhorcadoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    fixturePorLetra = TestBed.createComponent(AhorcadoLetraComponent);
+    componentAhorcadoLetra = fixturePorLetra.componentInstance;
+    fixturePorLetra.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(componentAhorcadoLetra).toBeTruthy();
   });
 
   it('debería generar la palabra a Adivinar', () => {
@@ -50,15 +61,40 @@ describe('AhorcadoComponent', () => {
     // const cantidaddeletrasiguales = (component.palabraoculta.length === component.palabraAAdivinar.length);
     // expect(cantidaddeletrasiguales).toBeTrue(); 
 
-  });
+  }); 
 
-  it('debería ingresar una letra y validarla',() => {
-    component.getPalabra();
+  
+  // it('debería ingresar una letra y validarla',() => {
+  //   component.generarJuego();
     
-    let letra = component.palabraAdivinar[0];;
-    component.CoincideLetra(letra);
+  //   let letra = component.palabraAdivinar[0];;
+  //   component.CoincideLetra(letra);
 
-    let letraAdivinada = component.palabraAdivinar.includes(letra);
-    expect(letraAdivinada).toBeTruthy();
+  //   let letraAdivinada = component.palabraAdivinar.includes(letra);
+  //   expect(letraAdivinada).toBeTruthy();
+  // })
+  it('debería ingresar una letra y validarla',() => {
+    componentAhorcadoLetra.initForm();
+    
+    componentAhorcadoLetra.ahorcadoForm.value.letraIntento = 'C';
+
+    componentAhorcadoLetra.arriesgaLetra();
+    component.getEstadoJuego();
+    expect(component.resultado.Success).toBeTrue(); 
   })
+  
+
+
+  // arriesgaLetra(): void { 
+  //   let letra: string = this.ahorcadoForm.value.letraIntento;
+  //   this.ahorcadoService.arriesgaLetra(letra)
+  //     .subscribe({
+  //       next: res => { 
+  //         this.resultado = res; 
+  //         this.reload = this.reload + 1;
+  //         this.flagSubmitChange.emit(this.reload );
+  //       } 
+  //     }); 
+  // }  
+
 });
