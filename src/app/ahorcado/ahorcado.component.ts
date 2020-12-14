@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Ahorcado, Resultado } from '../model/ahorcado';
+import { FormGroup } from '@angular/forms';
+import { Resultado } from '../model/ahorcado';
 import { tipoJuego } from '../model/tipoJuegoEnum';
 import { AhorcadoService } from '../services/ahorcado.service';
 
@@ -38,26 +38,24 @@ export class AhorcadoComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.flagTipoJuego = tipoJuego.PorLetra;
-    this.getPalabra();
+    this.iniciarJuego();
   }
 
-  getPalabra(): void {
-    //console.log('getpalabra');
-    this.ahorcadoService.getPalabra().subscribe({
+  iniciarJuego(): void {
+    this.ahorcadoService.iniciarJuego().subscribe({
       next: res => {
         const parsedRes: any = JSON.parse(JSON.stringify(res));
         this.palabraAAdivinar = parsedRes.Value;
+        console.log(' . this.palabraAAdivinar',  this.palabraAAdivinar);
       }
     });
   }
 
   ngOnChanges(): void {
-    // console.log('ngOnChanges');
     this.getEstadoJuego();
   }
 
   onDataChange(event): void {
-    console.log('onDataChange');
     this.flagSubmitChange += event;
     this.getEstadoJuego();
     this.getLetrasIncorrectas();
@@ -66,7 +64,6 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   }
 
   getEstadoJuego(): void {
-    // console.log('GetEstadoJuego');
     this.ahorcadoService.getEstadoJuego().subscribe({
       next: res => {
         this.resultado = res;
@@ -77,24 +74,16 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   setTipoJuego(event): void {
     // console.log('se cambia tipo juego', event);
     this.flagTipoJuego = parseInt(event, 10);
-  }
-  tituloTipoJuego(): string {
-    return this.flagTipoJuego === tipoJuego.PorLetra ? 'Por letra'
-      : this.flagTipoJuego === tipoJuego.PorPalabraCompleta ? 'Por palabra completa'
-        : 'Multijugador';
-  }
-  esPorLetra(): boolean {
-    // console.log('esPorLetra',this.flagTipoJuego === tipoJuego.PorLetra ? true : false);
+  } 
+  esPorLetra(): boolean { 
     return this.flagTipoJuego === tipoJuego.PorLetra;
   }
   esPorPalabraCompleta(): boolean {
-    // console.log('esPorPalabraCompleta',this.flagTipoJuego === tipoJuego.PorPalabraCompleta ? true : false);
     return this.flagTipoJuego === tipoJuego.PorPalabraCompleta;
   }
 
   recargaJuego(): void {
-    // console.log('recarga');
-    this.getPalabra();
+    this.iniciarJuego();
     this.limpiaJuego();
   }
 
@@ -127,8 +116,6 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   getIntentosRestantes(): void {
     this.ahorcadoService.getIntentosRestantes().subscribe({
       next: res => {
-        // console.log('getIntentosRestantes');
-        // console.log(res);
         this.intentosRestantes = res;
         this.vidas();
       }
@@ -157,7 +144,6 @@ export class AhorcadoComponent implements OnInit, OnChanges {
     }
     else if (this.flagTipoJuego === tipoJuego.PorPalabraCompleta && this.resultado.Value === 'Perdiste!') {
       this.vidaImagen = this.URL_IMAGENES_PRE + 'ahorcadocompleto' + this.URL_IMAGENES_EXT;
-      // console.log(this.vidaImagen);
     }
   }
 

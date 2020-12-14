@@ -8,13 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { MatInputModule } from '@angular/material/input'; 
 import { MatIconModule } from '@angular/material/icon'; 
-import { MatGridListModule } from '@angular/material/grid-list'; 
-import { PalabraComponent } from './ahorcado/palabra/palabra.component';
+import { MatGridListModule } from '@angular/material/grid-list';  
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AhorcadoLetraComponent } from './ahorcado/ahorcado-letra/ahorcado-letra.component';
-import { EstadisticasComponent } from './ahorcado/estadisticas/estadisticas.component';
+import { AhorcadoLetraComponent } from './ahorcado/ahorcado-letra/ahorcado-letra.component'; 
 import { AhorcadoPalabraComponent } from './ahorcado/ahorcado-palabra/ahorcado-palabra.component'; 
 import { MatChipsModule } from '@angular/material/chips';
 import { NavigationBarComponent } from './ahorcado/navigation-bar/navigation-bar.component';
@@ -26,12 +24,10 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    PalabraComponent,
+    AppComponent,  
     AhorcadoComponent,
     AhorcadoLetraComponent,
-    AhorcadoPalabraComponent,
-    EstadisticasComponent,
+    AhorcadoPalabraComponent, 
     NavigationBarComponent
   ],
   imports: [

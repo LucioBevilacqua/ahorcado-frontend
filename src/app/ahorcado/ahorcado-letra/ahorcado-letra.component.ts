@@ -36,13 +36,14 @@ export class AhorcadoLetraComponent implements OnInit {
     let letra: string = this.ahorcadoForm.value.letraIntento;
     this.ahorcadoService.arriesgaLetra(letra)
       .subscribe({
-        next: res => { 
+        next: res => {  
+          console.log('res', res);
           this.resultado = res; 
           this.reload = this.reload + 1;
           this.flagSubmitChange.emit(this.reload );
         } 
       }); 
-  }  
+  }
   onDataChange(){ 
     this.flagSubmitChange.emit(1);
   } 

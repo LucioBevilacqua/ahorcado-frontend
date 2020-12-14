@@ -10,12 +10,14 @@ import { PalabraInput, Resultado } from '../model/ahorcado';
 export class AhorcadoService {
 
   //private baseUrl = 'http://localhost:5000/api/Ahorcado/';
-  private baseUrl = 'https://ahorcadoapi2.azurewebsites.net/api/Ahorcado/';
+  private baseUrl = 'https://localhost:44365/api/Ahorcado/';
+  //private baseUrl = 'https://ahorcadoapi2.azurewebsites.net/api/Ahorcado/';
 
   constructor(private http: HttpClient) { }
 
   /// Trae la palabra inicial para comenzar el juego
-  getPalabra(): Observable<object> {
+  iniciarJuego(): Observable<object> {
+    console.log('iniciarJuego')
     return this.http.get(this.baseUrl + 'inicio', { responseType: 'json' }); 
   }
   /// Arriesga la palabra ingresada por el usuario
