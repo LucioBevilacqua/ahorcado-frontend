@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { AhorcadoService } from './ahorcado.service';
 // Http testing module and mocking controller
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'; 
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 describe('AhorcadoService', () => {
   let service: AhorcadoService;

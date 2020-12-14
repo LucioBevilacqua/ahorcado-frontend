@@ -1,5 +1,5 @@
 export enum tipoJuego {
-    PorPalabraCompleta = 1,
-    PorLetra = 2, 
-    Multijugador = 3, 
-  }
+  PorPalabraCompleta = 1,
+  PorLetra = 2,
+  Multijugador = 3,
+}

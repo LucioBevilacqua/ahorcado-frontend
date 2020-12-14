@@ -10,14 +10,14 @@ import { AhorcadoService } from '../../services/ahorcado.service';
 })
 export class AhorcadoPalabraComponent implements OnInit {
 
-  @Output() flagSubmitChange = new EventEmitter<number>();  
-  reload : number = 0;
-  //flagSubmit = false;
-  resultado: Resultado =  {
-    Success : false,
-    Value : '',
-    Info : '',
-};
+  @Output() flagSubmitChange = new EventEmitter<number>();
+  reload = 0;
+  // flagSubmit = false;
+  resultado: Resultado = {
+    Success: false,
+    Value: '',
+    Info: '',
+  };
   ahorcadoForm: FormGroup;
   dataAhorcado: Ahorcado = {
     palabraAAdivinar: ''
@@ -29,25 +29,25 @@ export class AhorcadoPalabraComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-  //  this.getPalabra();
+    //  this.getPalabra();
   }
 
   initForm(): void {
     this.ahorcadoForm = new FormGroup({
-      palabraIntento: new FormControl('', [Validators.required]), 
+      palabraIntento: new FormControl('', [Validators.required]),
     });
   }
 
-  arriesgaPalabra(): void { 
-    this.ahorcadoService.arriesgaPalabra(  
-        this.ahorcadoForm.value.palabraIntento
-      ).subscribe({
-        next: res => {  
-          this.resultado=res; 
-          this.reload = this.reload  + 1;
-          this.flagSubmitChange.emit(this.reload );
-        } 
-      });
+  arriesgaPalabra(): void {
+    this.ahorcadoService.arriesgaPalabra(
+      this.ahorcadoForm.value.palabraIntento
+    ).subscribe({
+      next: res => {
+        this.resultado = res;
+        this.reload = this.reload + 1;
+        this.flagSubmitChange.emit(this.reload);
+      }
+    });
   }
   // checkResultado(): void { // palabraIntento: string
   //   this.resultado = this.ahorcadoForm.value.palabraAAdivinar.Value === this.ahorcadoForm.value.palabraIntento;
@@ -55,16 +55,16 @@ export class AhorcadoPalabraComponent implements OnInit {
   // }
   // getPalabra(): void {
   //   this.ahorcadoService.getPalabra().subscribe({
-  //     next: res => { 
-  //       const parsedRes: any = JSON.parse(JSON.stringify(res)); 
-  //       console.log('parsedRes',parsedRes); 
+  //     next: res => {
+  //       const parsedRes: any = JSON.parse(JSON.stringify(res));
+  //       console.log('parsedRes',parsedRes);
   //       this.ahorcadoForm.patchValue({
   //         palabraAAdivinar: res,
   //       });
-  //     } 
+  //     }
   //   });
   // }
-  // recargaJuego(){ 
+  // recargaJuego(){
   //   console.log('recarga');
   //   this.getPalabra();
   //   this.limpiaMensajes();
@@ -74,8 +74,8 @@ export class AhorcadoPalabraComponent implements OnInit {
   //   this.resultado = {Value:'', Info:'', Success: false};
   // }
 
-  
-  onDataChange(){ 
+
+  onDataChange(): void {
     this.flagSubmitChange.emit(1);
   }
 }

@@ -10,41 +10,41 @@ import { AhorcadoService } from 'src/app/services/ahorcado.service';
 })
 export class AhorcadoLetraComponent implements OnInit {
 
-  @Output() flagSubmitChange = new EventEmitter<number>();  
-  flagSubmit = false; 
-  ahorcadoForm: FormGroup; 
-  resultado: Resultado =  {
-    Success : false,
-    Value : '',
-    Info : '',
+  @Output() flagSubmitChange = new EventEmitter<number>();
+  flagSubmit = false;
+  ahorcadoForm: FormGroup;
+  resultado: Resultado = {
+    Success: false,
+    Value: '',
+    Info: '',
   };
-  reload: number = 0;
+  reload = 0;
 
   constructor(
     private ahorcadoService: AhorcadoService
   ) { }
 
   ngOnInit(): void {
-    this.initForm(); 
+    this.initForm();
   }
   initForm(): void {
     this.ahorcadoForm = new FormGroup({
-      letraIntento: new FormControl('', [Validators.required]) 
-    } );
-  } 
-  arriesgaLetra(): void { 
-    let letra: string = this.ahorcadoForm.value.letraIntento;
+      letraIntento: new FormControl('', [Validators.required])
+    });
+  }
+  arriesgaLetra(): void {
+    const letra: string = this.ahorcadoForm.value.letraIntento;
     this.ahorcadoService.arriesgaLetra(letra)
       .subscribe({
-        next: res => {  
+        next: res => {
           console.log('res', res);
-          this.resultado = res; 
+          this.resultado = res;
           this.reload = this.reload + 1;
-          this.flagSubmitChange.emit(this.reload );
-        } 
-      }); 
+          this.flagSubmitChange.emit(this.reload);
+        }
+      });
   }
-  onDataChange(){ 
+  onDataChange(): void {
     this.flagSubmitChange.emit(1);
-  } 
+  }
 }

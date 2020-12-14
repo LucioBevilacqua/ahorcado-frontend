@@ -29,5 +29,5 @@ describe('AhorcadoLetraComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  }); 
+  });
 });
