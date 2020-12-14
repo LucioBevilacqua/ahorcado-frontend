@@ -29,6 +29,9 @@ steps:
       npx ng test --watch=false --codeCoverage=true
     displayName: "Run integration tests"
 
+  - script: npx ng lint
+    displayName: 'Code Analysis'
+
   - task: PublishTestResults@2
     condition: succeededOrFailed()
     inputs:
