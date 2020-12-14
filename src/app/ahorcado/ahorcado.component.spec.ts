@@ -108,7 +108,7 @@ describe('AhorcadoComponent', () => {
         expect(res).not.toBeNull();
       }
     });
-  }); 
+  });
   it('debería generar un nuevo juego llamando a funcion', waitForAsync(() => {
     component.iniciarJuego();
     expect(component.intentosRestantes).toEqual(4);
