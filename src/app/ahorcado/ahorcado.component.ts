@@ -17,12 +17,12 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   palabraAAdivinar = '';
   letrasCorrectas: string[] = [];
   letrasIncorrectas: string[] = [];
-  intentosRestantes: number = 4;
+  intentosRestantes = 4;
   URL_IMAGENES_PRE = 'assets/';
   URL_IMAGENES_EXT = '.jpg';
   // URL imagen cambiante durante los fallos en el juego
   vidaImagen: string = this.URL_IMAGENES_PRE + 'ahorcadoinicial' + this.URL_IMAGENES_EXT;
-  //palabraoculta: string;
+  // palabraoculta: string;
   // cantidadVidas = 4;
   flagSubmitChange = 0;
   flagMostrarPalabra = false;
@@ -60,7 +60,7 @@ export class AhorcadoComponent implements OnInit, OnChanges {
     this.getEstadoJuego();
     this.getLetrasIncorrectas();
     this.getLetrasCorrectas();
-    this.getIntentosRestantes(); 
+    this.getIntentosRestantes();
   }
 
   getEstadoJuego(): void {
@@ -74,8 +74,8 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   setTipoJuego(event): void {
     // console.log('se cambia tipo juego', event);
     this.flagTipoJuego = parseInt(event, 10);
-  } 
-  esPorLetra(): boolean { 
+  }
+  esPorLetra(): boolean {
     return this.flagTipoJuego === tipoJuego.PorLetra;
   }
   esPorPalabraCompleta(): boolean {
