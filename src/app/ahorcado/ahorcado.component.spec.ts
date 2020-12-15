@@ -101,60 +101,22 @@ describe('AhorcadoComponent', () => {
   ////////////////////////////////////////////////////////
   /////////////////// Integration tests////////////////////
   ////////////////////////////////////////////////////////
-  it('debería generar la palabra a Adivinar', () => {
-
-    // console.log('component.palabraAAdivinar', component.palabraAAdivinar);
-    // component.iniciarJuego();
-    // console.log('component.palabraAAdivinar', component.palabraAAdivinar);
-
-    // let palabraAAdivinar: string;
+  it('debería generar un nuevo juego usando subscribe', () => {
     ahorcadoService.iniciarJuego().subscribe({
-
       next: res => {
         console.log('entro al subscribe');
         expect(res).not.toBeNull();
       }
     });
-
-    // console.log('component.palabraAAdivinar', palabraAAdivinar);
-    // //component.palabraoculta = component.palabraAAdivinar;
-    // expect(component.palabraAAdivinar).not.toBeNull();
-
-
   });
-
-
-  it('debería generar un nuevo juego', waitForAsync(() => {
+  it('debería generar un nuevo juego llamando a funcion', waitForAsync(() => {
     component.iniciarJuego();
     expect(component.intentosRestantes).toEqual(4);
     expect(component.palabraAAdivinar).not.toBeUndefined();
     expect(component.letrasCorrectas).toEqual([]);
-
     console.log(' .palabraAAdivinar', component.palabraAAdivinar);
 
   }));
-
-
-
-
-
-  // it("Deberia iniciar el juego obteniendo la palabra a adivinar", waitForAsync(() => {
-  //   //Arrange
-  //   let response: Resultado = {Success : true
-  //     , Value : 'perro'
-  //     , Info: 'Juego inicializado'};
-
-  //   //Act
-  //   spyOn(ahorcadoService, 'iniciarJuego').and.returnValue(of(response))
-
-  //   component.iniciarJuego();
-
-  //   fixture.detectChanges();
-
-  //   console.log('component.resultado',component.resultado);
-
-  //   expect(component.resultado).toEqual(response);
-  // }));
 });
 
 

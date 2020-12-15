@@ -58,3 +58,13 @@ steps:
     displayName: 'Download Pipeline Artifact'  
     inputs:  
       targetPath: ' $(Build.ArtifactStagingDirectory)/dist/AngularTest'
+  - task: AzureRmWebAppDeployment@4
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Pay-As-You-Go(f37a0d4e-95eb-4524-bb54-6a1aae89c4ef)'
+      appType: 'webApp'
+      WebAppName: 'ahorcadofrontend'
+      deployToSlotOrASE: true
+      ResourceGroupName: 'ahorcadosServerFrontend'
+      SlotName: 'production'
+      packageForLinux: '$(Build.ArtifactStagingDirectory)/dist/AngularTest'
