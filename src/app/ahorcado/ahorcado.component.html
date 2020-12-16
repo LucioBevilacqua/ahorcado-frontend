@@ -13,9 +13,11 @@
  
   <h2 id="TipoJuego"> 
     Tipo juego
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style"> 
-      <mat-button-toggle (change)="setTipoJuego($event.value)" value=1 matTooltip="Por Palabra Completa" >Por palabra</mat-button-toggle>
-      <mat-button-toggle (change)="setTipoJuego($event.value)" value=2 matTooltip="Por letra">Por letra</mat-button-toggle>
+    <mat-button-toggle-group 
+      name="fontStyle" 
+      aria-label="Font Style"> 
+      <mat-button-toggle id="buttonToggleTipoJuegoPorPalabra" (change)="setTipoJuego($event.value)" value=1 matTooltip="Por Palabra Completa" >Por palabra</mat-button-toggle>
+      <mat-button-toggle id="buttonToggleTipoJuegoPorLetra" (change)="setTipoJuego($event.value)" value=2 matTooltip="Por letra">Por letra</mat-button-toggle>
      </mat-button-toggle-group>
   </h2>
 
