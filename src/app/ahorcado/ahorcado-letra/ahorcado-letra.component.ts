@@ -40,7 +40,7 @@ export class AhorcadoLetraComponent implements OnInit {
           console.log('res', res);
           this.ahorcadoForm.reset(undefined);
           this.resultado = res;
-          this.reload = this.reload + 1;
+          // this.reload = this.reload + 1;
           this.flagSubmitChange.emit(this.reload);
         }
       });
