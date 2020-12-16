@@ -44,7 +44,7 @@ export class AhorcadoPalabraComponent implements OnInit {
     ).subscribe({
       next: res => {
         this.resultado = res;
-        //this.ahorcadoForm.reset('');
+        // this.ahorcadoForm.reset('');
         this.reload = this.reload + 1;
         this.flagSubmitChange.emit(this.reload);
       }
