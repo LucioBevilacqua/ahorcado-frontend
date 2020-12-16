@@ -1,16 +1,13 @@
 <h1 id="TituloAhorcado">Ahorcado 
   <span class="material-icons"> videogame_asset  </span>
-</h1> 
- 
+</h1>  
   <button id="ReiniciarJuegoButton" 
     mat-raised-button color="primary" 
     (click)="this.recargaJuego()">
     <span class="material-icons"> refresh  </span>
     Reiniciar juego
   </button> 
-
-  <br><br> 
- 
+  <br><br>  
   <h2 id="TipoJuego"> 
     Tipo juego
     <mat-button-toggle-group 
@@ -20,65 +17,61 @@
       <mat-button-toggle id="buttonToggleTipoJuegoPorLetra" (change)="setTipoJuego($event.value)" value=2 matTooltip="Por letra">Por letra</mat-button-toggle>
      </mat-button-toggle-group>
   </h2>
-
-<div class="container"> 
-    He fracasado, decime la palabra
-    <div *ngIf="flagMostrarPalabra">
-      <h3>{{  this.palabraAAdivinar  }} </h3>
-    </div>  
-    <button mat-raised-button color="primary" type="submit" (click)="this.setFlagMostrarPalabra()"  > 
-      <span mat-raised-button color="primary" class="material-icons">
-        visibility
-      </span>
-    </button>
-</div>
+  <div class="container"> 
+      He fracasado, decime la palabra
+      <div *ngIf="flagMostrarPalabra" id="DivFlagMostrarPalabra">
+        <h3 id="PalabraAAdivinar">
+          {{  this.palabraAAdivinar  }}
+        </h3>
+      </div>  
+      <button id="ButtonFlagPalabraAAdivinar" mat-raised-button color="primary" type="submit" (click)="this.setFlagMostrarPalabra()"  > 
+        <span mat-raised-button color="primary" class="material-icons">
+          visibility
+        </span>
+      </button>
+  </div>
 <br> 
-<div>
-  <h2 id="EstadoJuego">
-    Estado juego: 
-  </h2>
-  <img 
-    id="EstadoJuego"
-    width="250"
-    alt="image" 
-    src={{vidaImagen}}  
-  >   
-  <h2 id="CantidadIntentosRestantes">
-    Intentos restantes:  {{intentosRestantes}} 
-  </h2> 
-
-</div>  
-    <mat-chip-list aria-label="Fish selection" 
-      id="MatChipListLetrasCorrectas"> 
-      <mat-chip *ngFor="let letra of letrasCorrectas" 
-        color="primary" 
-        selected>
-        {{letra}}  
-      </mat-chip>
-    </mat-chip-list>
-    <mat-chip-list aria-label="Fish selection" 
-      id="MatChipListLetrasIncorrectas">  
-      <mat-chip *ngFor="let letra of letrasIncorrectas" 
-        color="warn" 
-        selected >
-        {{letra}}  
-      </mat-chip>
-    </mat-chip-list>
-  
-    <h2 *ngIf="resultado.Value"
-      id="estadoDeJuego"> 
-      {{resultado.Value}}
-      <span class="material-icons"> emoji_events  </span>
-      <span class="material-icons"> psychology  </span>
+  <div>
+    <h2 id="EstadoJuego">
+      Estado juego: 
+    </h2>
+    <img 
+      id="EstadoJuego"
+      width="250"
+      alt="image" 
+      src={{vidaImagen}} >   
+    <h2 id="CantidadIntentosRestantes">
+      Intentos restantes:  {{intentosRestantes}} 
     </h2> 
-
-<app-ahorcado-letra
-    (flagSubmitChange)="onDataChange($event)"
-    *ngIf="esPorLetra()"
-    > 
-</app-ahorcado-letra>
-<app-ahorcado-palabra
-    (flagSubmitChange)="onDataChange($event)"
-    *ngIf="esPorPalabraCompleta()"> 
-</app-ahorcado-palabra>
- 
+  </div>  
+  <mat-chip-list aria-label="Fish selection" 
+    id="MatChipListLetrasCorrectas"> 
+    <mat-chip *ngFor="let letra of letrasCorrectas" 
+      color="primary" 
+      selected>
+      {{letra}}  
+    </mat-chip>
+  </mat-chip-list>
+  <mat-chip-list aria-label="Fish selection" 
+    id="MatChipListLetrasIncorrectas">  
+    <mat-chip *ngFor="let letra of letrasIncorrectas" 
+      color="warn" 
+      selected >
+      {{letra}}  
+    </mat-chip>
+  </mat-chip-list>
+    <h2 *ngIf="resultado.Value"
+    id="estadoDeJuego"> 
+    {{resultado.Value}}
+    <span class="material-icons"> emoji_events  </span>
+    <span class="material-icons"> psychology  </span>
+  </h2> 
+  <app-ahorcado-letra
+      (flagSubmitChange)="onDataChange($event)"
+      *ngIf="esPorLetra()"> 
+  </app-ahorcado-letra>
+  <app-ahorcado-palabra
+      (flagSubmitChange)="onDataChange($event)"
+      *ngIf="esPorPalabraCompleta()"> 
+  </app-ahorcado-palabra>
+  
