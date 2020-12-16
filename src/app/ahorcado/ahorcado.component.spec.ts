@@ -82,10 +82,6 @@ describe('AhorcadoComponent', () => {
     expect(componentAhorcadoLetra).toBeTruthy();
   });
 
-  ////////////////////////////////////////////////////////
-  ///////////////////// Unit tests/////////////////////////
-  ////////////////////////////////////////////////////////
-
   it('Deberia setear tipo juego "por palabra completa"', () => {
     component.setTipoJuego('1');
     const tipoJuego = component.esPorPalabraCompleta();
@@ -97,10 +93,6 @@ describe('AhorcadoComponent', () => {
     expect(tipoJuego).toBeTrue();
   });
 
-
-  ////////////////////////////////////////////////////////
-  /////////////////// Integration tests////////////////////
-  ////////////////////////////////////////////////////////
   it('debería generar un nuevo juego usando subscribe', () => {
     ahorcadoService.iniciarJuego().subscribe({
       next: res => {
@@ -115,7 +107,6 @@ describe('AhorcadoComponent', () => {
     expect(component.palabraAAdivinar).not.toBeUndefined();
     expect(component.letrasCorrectas).toEqual([]);
     console.log(' .palabraAAdivinar', component.palabraAAdivinar);
-
   }));
 });
 

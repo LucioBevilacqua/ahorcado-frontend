@@ -1,15 +1,17 @@
-<h1>Ahorcado 
+<h1 id="TituloAhorcado">Ahorcado 
   <span class="material-icons"> videogame_asset  </span>
 </h1> 
  
-  <button mat-raised-button color="primary" (click)="this.recargaJuego()">
+  <button id="ReiniciarJuegoButton" 
+    mat-raised-button color="primary" 
+    (click)="this.recargaJuego()">
     <span class="material-icons"> refresh  </span>
     Reiniciar juego
   </button> 
 
   <br><br> 
  
-  <h2> 
+  <h2 id="TipoJuego"> 
     Tipo juego
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style"> 
       <mat-button-toggle (change)="setTipoJuego($event.value)" value=1 matTooltip="Por Palabra Completa" >Por palabra</mat-button-toggle>
@@ -31,11 +33,15 @@
 
 <br> 
 <div>
-  <h2>
+  <h2 id="EstadoJuego">
     Estado juego: 
   </h2>
-  <img width="250" alt="image" src={{vidaImagen}}  > 
-  
+  <img 
+    id="EstadoJuego"
+    width="250"
+    alt="image" 
+    src={{vidaImagen}}  
+  >   
   <h2>
     Intentos restantes:  {{intentosRestantes}} 
   </h2> 
