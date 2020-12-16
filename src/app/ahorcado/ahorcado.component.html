@@ -32,7 +32,6 @@
       </span>
     </button>
 </div>
-
 <br> 
 <div>
   <h2 id="EstadoJuego">
@@ -44,18 +43,24 @@
     alt="image" 
     src={{vidaImagen}}  
   >   
-  <h2>
+  <h2 id="CantidadIntentosRestantes">
     Intentos restantes:  {{intentosRestantes}} 
   </h2> 
-</div>
-  
-    <mat-chip-list aria-label="Fish selection" > 
-      <mat-chip *ngFor="let letra of letrasCorrectas" color="primary" selected >
+
+</div>  
+    <mat-chip-list aria-label="Fish selection" 
+      id="MatChipListLetrasCorrectas"> 
+      <mat-chip *ngFor="let letra of letrasCorrectas" 
+        color="primary" 
+        selected>
         {{letra}}  
       </mat-chip>
     </mat-chip-list>
-    <mat-chip-list aria-label="Fish selection" > 
-      <mat-chip *ngFor="let letra of letrasIncorrectas" color="warn" selected >
+    <mat-chip-list aria-label="Fish selection" 
+      id="MatChipListLetrasIncorrectas">  
+      <mat-chip *ngFor="let letra of letrasIncorrectas" 
+        color="warn" 
+        selected >
         {{letra}}  
       </mat-chip>
     </mat-chip-list>
@@ -66,7 +71,7 @@
       <span class="material-icons"> emoji_events  </span>
       <span class="material-icons"> psychology  </span>
     </h2> 
-  
+
 <app-ahorcado-letra
     (flagSubmitChange)="onDataChange($event)"
     *ngIf="esPorLetra()"
