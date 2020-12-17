@@ -49,7 +49,6 @@ export class AhorcadoService {
       , httpOptions
     );
   }
-
   getEstadoJuego(): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'estado', { responseType: 'json' });
   }
@@ -61,6 +60,9 @@ export class AhorcadoService {
   }
   getIntentosRestantes(): Observable<number> {
     return this.http.get<number>(this.baseUrl + 'intentosRestantes', { responseType: 'json' });
+  }
+  getPalabraEnJuego(): Observable<string> {
+    return this.http.get<string>(this.baseUrl + 'palabraEnJuego');
   }
 
 }

@@ -17,6 +17,8 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   palabraAAdivinar = '';
   letrasCorrectas: string[] = [];
   letrasIncorrectas: string[] = [];
+  palabraEnJuego: string;
+  palabraEnJuegoLen: string;
   intentosRestantes = 4;
   URL_IMAGENES_PRE = 'assets/';
   URL_IMAGENES_EXT = '.jpg';
@@ -40,29 +42,26 @@ export class AhorcadoComponent implements OnInit, OnChanges {
     this.flagTipoJuego = tipoJuego.PorLetra;
     this.iniciarJuego();
   }
-
   iniciarJuego(): void {
     this.ahorcadoService.iniciarJuego().subscribe({
       next: res => {
         const parsedRes: any = JSON.parse(JSON.stringify(res));
         this.palabraAAdivinar = parsedRes.Value;
-        console.log(' . this.palabraAAdivinar',  this.palabraAAdivinar);
+        this.getPalabraEnJuego();
       }
     });
   }
-
   ngOnChanges(): void {
     this.getEstadoJuego();
   }
-
   onDataChange(event): void {
     this.flagSubmitChange += event;
     this.getEstadoJuego();
     this.getLetrasIncorrectas();
     this.getLetrasCorrectas();
     this.getIntentosRestantes();
+    this.getPalabraEnJuego();
   }
-
   getEstadoJuego(): void {
     this.ahorcadoService.getEstadoJuego().subscribe({
       next: res => {
@@ -81,12 +80,10 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   esPorPalabraCompleta(): boolean {
     return this.flagTipoJuego === tipoJuego.PorPalabraCompleta;
   }
-
   recargaJuego(): void {
     this.iniciarJuego();
     this.limpiaJuego();
   }
-
   limpiaJuego(): void {
     this.resultado = { Value: '', Info: '', Success: false };
     this.intentosRestantes = null;
@@ -94,11 +91,9 @@ export class AhorcadoComponent implements OnInit, OnChanges {
     this.letrasIncorrectas = null;
     this.vidaImagen = this.URL_IMAGENES_PRE + 'ahorcadoinicial' + this.URL_IMAGENES_EXT;
   }
-
   setFlagMostrarPalabra(): void {
     this.flagMostrarPalabra = !this.flagMostrarPalabra;
   }
-
   getLetrasIncorrectas(): void {
     this.ahorcadoService.getLetrasIncorrectas().subscribe({
       next: res => {
@@ -121,6 +116,15 @@ export class AhorcadoComponent implements OnInit, OnChanges {
       }
     });
   }
+  getPalabraEnJuego(): void {
+    this.ahorcadoService.getPalabraEnJuego().subscribe({
+      next: res => {
+        const parsedRes: any = JSON.parse(JSON.stringify(res));
+        this.palabraEnJuego = parsedRes.Value;
+        this.palabraEnJuegoLen = parsedRes.Info;
+      }
+    });
+  }
   vidas(): void {
     if (this.flagTipoJuego === tipoJuego.PorLetra) {
       switch (this.intentosRestantes) {
@@ -137,14 +141,17 @@ export class AhorcadoComponent implements OnInit, OnChanges {
           this.vidaImagen = this.URL_IMAGENES_PRE + 'ahorcadotresfallos' + this.URL_IMAGENES_EXT;
           break;
         case 0:
-          this.vidaImagen = this.URL_IMAGENES_PRE + 'ahorcadocompleto' + this.URL_IMAGENES_EXT;
-          // this.gameOver();
+          this.gameOver();
           break;
       }
     }
     else if (this.flagTipoJuego === tipoJuego.PorPalabraCompleta && this.resultado.Value === 'Perdiste!') {
       this.vidaImagen = this.URL_IMAGENES_PRE + 'ahorcadocompleto' + this.URL_IMAGENES_EXT;
+      this.gameOver();
     }
   }
-
+  gameOver(): void {
+    this.vidaImagen = this.URL_IMAGENES_PRE + 'ahorcadocompleto' + this.URL_IMAGENES_EXT;
+    this.intentosRestantes = null;
+  }
 }
