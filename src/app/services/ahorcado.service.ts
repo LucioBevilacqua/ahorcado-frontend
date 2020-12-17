@@ -11,7 +11,7 @@ export class AhorcadoService {
 
   // private baseUrl = 'http://localhost:5000/api/Ahorcado/';
   // private baseUrl = 'https://localhost:44365/api/Ahorcado/';
-   private baseUrl = 'https://ahorcadoapi2.azurewebsites.net/api/Ahorcado/';
+  private baseUrl = 'https://ahorcadoapi2.azurewebsites.net/api/Ahorcado/';
 
   constructor(private http: HttpClient) { }
 

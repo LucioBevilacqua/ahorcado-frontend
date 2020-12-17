@@ -50,32 +50,6 @@ export class AhorcadoPalabraComponent implements OnInit {
       }
     });
   }
-  // checkResultado(): void { // palabraIntento: string
-  //   this.resultado = this.ahorcadoForm.value.palabraAAdivinar.Value === this.ahorcadoForm.value.palabraIntento;
-  //   this.flagSubmit = true;
-  // }
-  // getPalabra(): void {
-  //   this.ahorcadoService.getPalabra().subscribe({
-  //     next: res => {
-  //       const parsedRes: any = JSON.parse(JSON.stringify(res));
-  //       console.log('parsedRes',parsedRes);
-  //       this.ahorcadoForm.patchValue({
-  //         palabraAAdivinar: res,
-  //       });
-  //     }
-  //   });
-  // }
-  // recargaJuego(){
-  //   console.log('recarga');
-  //   this.getPalabra();
-  //   this.limpiaMensajes();
-  // }
-
-  // limpiaMensajes(){
-  //   this.resultado = {Value:'', Info:'', Success: false};
-  // }
-
-
   onDataChange(): void {
     this.flagSubmitChange.emit(1);
   }

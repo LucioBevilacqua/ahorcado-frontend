@@ -12,14 +12,13 @@ export class AhorcadoLetraComponent implements OnInit {
 
   @Output() flagSubmitChange = new EventEmitter<number>();
   flagSubmit = false;
+  reload = 0;
   ahorcadoForm: FormGroup;
   resultado: Resultado = {
     Success: false,
     Value: '',
     Info: '',
   };
-  reload = 0;
-
   constructor(
     private ahorcadoService: AhorcadoService
   ) { }
@@ -37,7 +36,6 @@ export class AhorcadoLetraComponent implements OnInit {
     this.ahorcadoService.arriesgaLetra(letra)
       .subscribe({
         next: res => {
-          console.log('res', res);
           this.resultado = res;
           this.reload = this.reload + 1;
           this.flagSubmitChange.emit(this.reload);
