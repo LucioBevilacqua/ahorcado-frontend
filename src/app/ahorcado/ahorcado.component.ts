@@ -26,7 +26,7 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   palabraEnJuegoLen: string;
   intentosRestantes = 4;
   URL_IMAGENES_PRE = 'assets/';
-  URL_IMAGENES_EXT = '.jpg';
+  URL_IMAGENES_EXT = '.png';
   // URL imagen cambiante durante los fallos en el juego
   vidaImagen: string = this.URL_IMAGENES_PRE + 'ahorcadoinicial' + this.URL_IMAGENES_EXT;
   color: ThemePalette = 'warn';
@@ -68,6 +68,11 @@ export class AhorcadoComponent implements OnInit, OnChanges {
     this.getLetrasCorrectas();
     this.getIntentosRestantes();
     this.getPalabraEnJuego();
+    if (this.resultado.Value === 'Ganaste!'){
+      this.flagCanPlay = false;
+    }else if (this.resultado.Value === 'Perdiste!'){
+      this.palabraEnJuego = this.palabraAAdivinar;
+    }
   }
   getEstadoJuego(): void {
     this.ahorcadoService.getEstadoJuego().subscribe({
