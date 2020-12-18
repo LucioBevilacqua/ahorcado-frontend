@@ -26,10 +26,6 @@ export class AhorcadoLetraComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
   }
-  ngOnChanges(){
-    console.log('flagCanPlay', this.flagCanPlay);
-
-  }
   initForm(): void {
     this.ahorcadoForm = new FormGroup({
       letraIntento: new FormControl('', [Validators.required])
