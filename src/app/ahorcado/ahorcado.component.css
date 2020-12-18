@@ -1,0 +1,13 @@
+.example-card {
+    max-width: 400px;
+  }
+  
+.titleXXLarge{
+    font-size:xx-large;
+}  
+.titleXLarge{
+    font-size:x-large;
+}  
+.colorBackgroundGreen{
+    background-color: green;
+}

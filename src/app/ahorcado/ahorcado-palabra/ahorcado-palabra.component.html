@@ -1,7 +1,7 @@
 <form  [formGroup]="ahorcadoForm" (ngSubmit)="arriesgaPalabra()">   
   <p> 
       <mat-form-field  appearance="standard">
-          <mat-label> Palabra a adivinar: </mat-label>
+          <mat-label> Palabra: </mat-label>
           <input matInput maxlength="256" formControlName="palabraIntento" placeholder="Adelante... estoy seguro que perderás..." >
           <mat-error *ngIf="ahorcadoForm.controls.palabraIntento.touched && ahorcadoForm.controls.palabraIntento.invalid">
               <span *ngIf="ahorcadoForm.controls.palabraIntento.errors.required">El que no arriesga no gana!</span>  

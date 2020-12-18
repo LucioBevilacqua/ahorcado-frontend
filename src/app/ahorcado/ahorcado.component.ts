@@ -31,7 +31,7 @@ export class AhorcadoComponent implements OnInit, OnChanges {
 
   resultado: Resultado = {
     Success: false,
-    Value: '',
+    Value: 'Que comience el juego!',
     Info: '',
   };
   constructor(

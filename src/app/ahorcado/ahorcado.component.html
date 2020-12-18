@@ -1,102 +1,108 @@
-<h1 
-  id="TituloAhorcado"
-  class="p-3 mb-2 bg-info text-white">
+<h1 id="TituloAhorcado"
+    class="p-3 mb-2 bg-primary text-white">
   Ahorcado 
   <span class="material-icons"> videogame_asset  </span>
 </h1>  
-<div > 
-  <img 
-    id="EstadoJuego"
-    width="250"
-    alt="image" 
-    src={{vidaImagen}} 
-    class="border-left border-success">   
-  <h1>
-    <span class="material-icons">
-      help
-    </span>
-    Palabra a adivinar:  {{palabraEnJuego}} 
-  </h1>  
-  <p>Tamaño: {{palabraEnJuegoLen}}</p>
-  <h2 id="CantidadIntentosRestantes">
-    Intentos restantes:  {{intentosRestantes}} 
-  </h2> 
-</div>  
-<mat-chip-list aria-label="Fish selection" 
-  id="MatChipListLetrasCorrectas"> 
-  <mat-chip *ngFor="let letra of letrasCorrectas" 
-    color="primary" 
-    selected>
-    {{letra}}  
-  </mat-chip>
-</mat-chip-list>
-<mat-chip-list aria-label="Fish selection" 
-  id="MatChipListLetrasIncorrectas">  
-  <mat-chip *ngFor="let letra of letrasIncorrectas" 
-    color="warn" 
-    selected >
-    {{letra}}  
-  </mat-chip>
-</mat-chip-list>
-  <h2 *ngIf="resultado.Value"
-  id="estadoDeJuego"> 
-  {{resultado.Value}}
-  <span class="material-icons"> emoji_events  </span>
-  <span class="material-icons"> psychology  </span>
-</h2> 
-<app-ahorcado-letra
-    (flagSubmitChange)="onDataChange($event)"
-    *ngIf="esPorLetra()"> 
-</app-ahorcado-letra>
-<app-ahorcado-palabra
-    (flagSubmitChange)="onDataChange($event)"
-    *ngIf="esPorPalabraCompleta()"> 
-</app-ahorcado-palabra>
-<br>
-<br> 
 
-<button id="buttonToggleTipoJuegoPorLetra" 
-  mat-raised-button color="primary" 
-  (click)="setTipoJuego(2)" 
-  *ngIf="flagTipoJuego===1"> 
-  Seguir intentando con otra letra
-</button> 
-<button id="buttonToggleTipoJuegoPorLetra" 
-  mat-raised-button color="primary" 
-  (click)="setTipoJuego(1)" 
-  *ngIf="flagTipoJuego===2"> 
-  Quiero arriesgar la palabra!
-</button> 
-<button id="ReiniciarJuegoButton" 
-  mat-raised-button color="warn" 
-  (click)="this.recargaJuego()">
-  <span class="material-icons"> refresh  </span>
-  Reiniciar juego
-</button>  
-<!-- <div *ngIf="flagMostrarPalabra" id="DivFlagMostrarPalabra">
-  <h3 id="PalabraAAdivinar">
-    {{  this.palabraAAdivinar  }}
-  </h3>
-</div>  
-<button id="ButtonFlagPalabraAAdivinar" mat-raised-button color="primary" type="submit" (click)="this.setFlagMostrarPalabra()"  >
-  He fracasado, decime la palabra 
-  <span mat-raised-button color="primary" class="material-icons">
-    visibility
-  </span>
-</button> -->
-
+<div class="container">
+	<div class="row">
+		<div class="text-center">
+      <app-ahorcado-letra
+        (flagSubmitChange)="onDataChange($event)"
+        *ngIf="esPorLetra()"> 
+      </app-ahorcado-letra>
+      <app-ahorcado-palabra
+        (flagSubmitChange)="onDataChange($event)"
+        *ngIf="esPorPalabraCompleta()"> 
+      </app-ahorcado-palabra>
+    </div> 
+  </div>
+  <br>
+  <br>
+	<div class="row"> 
+		<div class="col-4 center">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title class="titleXXLarge" >{{palabraEnJuego}}</mat-card-title>
+          <br>
+          <mat-card-subtitle>{{palabraEnJuegoLen}} letras</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>          
+          <mat-chip-list aria-label="Fish selection" id="MatChipListLetrasCorrectas" class="row text-center"> 
+            <mat-chip *ngFor="let letra of letrasCorrectas"  
+              selected
+              style="background-color: green;">
+              {{letra}}  
+            </mat-chip>
+          </mat-chip-list>
+          <mat-chip-list aria-label="Fish selection" id="MatChipListLetrasIncorrectas" class="row text-center">  
+            <mat-chip *ngFor="let letra of letrasIncorrectas" 
+              color="warn" 
+              selected >
+              {{letra}}  
+            </mat-chip>
+          </mat-chip-list>
+        </mat-card-content>
+        <mat-card-actions> 
+          <button id="buttonToggleTipoJuegoPorLetra" 
+            mat-raised-button color="accent" 
+            (click)="setTipoJuego(2)" 
+            *ngIf="flagTipoJuego===1"> 
+            Seguir intentando con otra letra
+          </button> 
+          <button id="buttonToggleTipoJuegoPorLetra" 
+            mat-raised-button color="accent" 
+            (click)="setTipoJuego(1)" 
+            *ngIf="flagTipoJuego===2"> 
+            Quiero arriesgar la palabra!
+          </button>  
+        </mat-card-actions> 
+      </mat-card>      
+    </div>
+		<div class="col-4 text-center">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title id="estadoDeJuego" *ngIf="resultado.Value" >
+            {{resultado.Value}}
+            <span class="material-icons"> psychology  </span>
+          </mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <img id="EstadoJuego" mat-card-image src={{vidaImagen}} width="250" alt="Estado del juego con imagen">
+        </mat-card-content>
+      </mat-card>
+    </div>
+		<div class="col-4">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title id="CantidadIntentosRestantes" class="titleXLarge">{{intentosRestantes}} </mat-card-title>
+          <mat-card-subtitle>Intentos restantes:</mat-card-subtitle>
+        </mat-card-header> 
+        <mat-card-content>
+        </mat-card-content>
+        <mat-card-actions>
+          <button id="ReiniciarJuegoButton" 
+            mat-raised-button color="warn" 
+            (click)="this.recargaJuego()">
+            <span class="material-icons"> refresh  </span>
+            Reiniciar juego
+          </button>  
+        </mat-card-actions>
+      </mat-card>
+    </div>
+	</div>
+</div>
 <mat-accordion>
   <mat-expansion-panel 
     hideToggle  
     id="ButtonFlagPalabraAAdivinar" 
-    color="primary"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        He fracasado, decime la palabra 
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <p id="PalabraAAdivinar" >{{  this.palabraAAdivinar  }} :( </p>
+    color="primary">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="text-align: center;">
+          He fracasado, decime la palabra 
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p id="PalabraAAdivinar" >{{  this.palabraAAdivinar  }} :( </p>
   </mat-expansion-panel> 
 </mat-accordion>
-
