@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Ahorcado, PalabraInput, Resultado } from '../../model/ahorcado';
 import { AhorcadoService } from '../../services/ahorcado.service';
@@ -9,7 +9,7 @@ import { AhorcadoService } from '../../services/ahorcado.service';
   styleUrls: ['./ahorcado-palabra.component.css']
 })
 export class AhorcadoPalabraComponent implements OnInit {
-
+  @Input() flagCanPlay: boolean;
   @Output() flagSubmitChange = new EventEmitter<number>();
   reload = 0;
   // flagSubmit = false;

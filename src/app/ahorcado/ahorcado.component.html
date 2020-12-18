@@ -9,10 +9,12 @@
 		<div class="text-center">
       <app-ahorcado-letra
         (flagSubmitChange)="onDataChange($event)"
+        [flagCanPlay]="flagCanPlay"
         *ngIf="esPorLetra()"> 
       </app-ahorcado-letra>
       <app-ahorcado-palabra
         (flagSubmitChange)="onDataChange($event)"
+        [flagCanPlay]="flagCanPlay"
         *ngIf="esPorPalabraCompleta()"> 
       </app-ahorcado-palabra>
     </div> 
@@ -47,13 +49,15 @@
           <button id="buttonToggleTipoJuegoPorLetra" 
             mat-raised-button color="accent" 
             (click)="setTipoJuego(2)" 
-            *ngIf="flagTipoJuego===1"> 
+            *ngIf="flagTipoJuego===1"
+            [disabled]="!flagCanPlay"> 
             Seguir intentando con otra letra
           </button> 
           <button id="buttonToggleTipoJuegoPorLetra" 
             mat-raised-button color="accent" 
             (click)="setTipoJuego(1)" 
-            *ngIf="flagTipoJuego===2"> 
+            *ngIf="flagTipoJuego===2"
+            [disabled]="!flagCanPlay"> 
             Quiero arriesgar la palabra!
           </button>  
         </mat-card-actions> 
@@ -76,10 +80,19 @@
 		<div class="col-4">
       <mat-card class="example-card">
         <mat-card-header>
-          <mat-card-title id="CantidadIntentosRestantes" class="titleXLarge">{{intentosRestantes}} </mat-card-title>
-          <mat-card-subtitle>Intentos restantes:</mat-card-subtitle>
+          <mat-card-title id="CantidadIntentosRestantes" class="titleXLarge">{{intentosRestantes}}</mat-card-title>
+          <mat-card-subtitle>Intentos restantes</mat-card-subtitle>
         </mat-card-header> 
         <mat-card-content>
+          <section class="example-section">
+            <mat-progress-bar
+                class="example-margin"
+                [color]="color"
+                [mode]="mode"
+                [value]="progressBarValue"
+                [bufferValue]="progressBarBufferValue">
+            </mat-progress-bar>
+          </section>
         </mat-card-content>
         <mat-card-actions>
           <button id="ReiniciarJuegoButton" 

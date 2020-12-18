@@ -1,5 +1,7 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 import { Resultado } from '../model/ahorcado';
 import { tipoJuego } from '../model/tipoJuegoEnum';
 import { AhorcadoService } from '../services/ahorcado.service';
@@ -13,6 +15,9 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   @Input() reload: number;
   flagSubmit = false;
   flagTipoJuego: number;
+  flagCanPlay = true;
+  flagSubmitChange = 0;
+  flagMostrarPalabra = false;
   ahorcadoForm: FormGroup;
   palabraAAdivinar = '';
   letrasCorrectas: string[] = [];
@@ -24,10 +29,10 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   URL_IMAGENES_EXT = '.jpg';
   // URL imagen cambiante durante los fallos en el juego
   vidaImagen: string = this.URL_IMAGENES_PRE + 'ahorcadoinicial' + this.URL_IMAGENES_EXT;
-  // palabraoculta: string;
-  // cantidadVidas = 4;
-  flagSubmitChange = 0;
-  flagMostrarPalabra = false;
+  color: ThemePalette = 'warn';
+  mode: ProgressBarMode = 'determinate';
+  progressBarValue = 0;
+  progressBarBufferValue = 0;
 
   resultado: Resultado = {
     Success: false,
@@ -41,12 +46,14 @@ export class AhorcadoComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.flagTipoJuego = tipoJuego.PorLetra;
     this.iniciarJuego();
+    this.progressBarBufferValue = this.intentosRestantes * 100;
   }
   iniciarJuego(): void {
     this.ahorcadoService.iniciarJuego().subscribe({
       next: res => {
         const parsedRes: any = JSON.parse(JSON.stringify(res));
         this.palabraAAdivinar = parsedRes.Value;
+        this.flagCanPlay = true;
         this.getPalabraEnJuego();
       }
     });
@@ -71,7 +78,6 @@ export class AhorcadoComponent implements OnInit, OnChanges {
     });
   }
   setTipoJuego(event): void {
-    // console.log('se cambia tipo juego', event);
     this.flagTipoJuego = parseInt(event, 10);
   }
   esPorLetra(): boolean {
@@ -112,6 +118,7 @@ export class AhorcadoComponent implements OnInit, OnChanges {
     this.ahorcadoService.getIntentosRestantes().subscribe({
       next: res => {
         this.intentosRestantes = res;
+        this.progressBarValue = this.progressBarBufferValue - this.intentosRestantes;
         this.vidas();
       }
     });
@@ -151,6 +158,7 @@ export class AhorcadoComponent implements OnInit, OnChanges {
     }
   }
   gameOver(): void {
+    this.flagCanPlay = false;
     this.vidaImagen = this.URL_IMAGENES_PRE + 'ahorcadocompleto' + this.URL_IMAGENES_EXT;
     this.intentosRestantes = null;
   }

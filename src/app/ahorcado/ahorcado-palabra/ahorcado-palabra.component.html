@@ -8,7 +8,14 @@
           </mat-error>  
       </mat-form-field>
   </p>  
-  <button id="buttonJuegoPorPalabra"  mat-raised-button color="primary" type="submit" [disabled]="!ahorcadoForm.valid">Adivinar palabra</button>
+  <button
+    id="buttonJuegoPorPalabra" 
+    mat-raised-button 
+    color="primary"
+    type="submit" 
+    [disabled]="!ahorcadoForm.valid || !flagCanPlay">
+    Adivinar palabra
+  </button>
 </form>
     
  

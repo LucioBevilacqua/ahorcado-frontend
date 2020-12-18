@@ -64,5 +64,4 @@ export class AhorcadoService {
   getPalabraEnJuego(): Observable<string> {
     return this.http.get<string>(this.baseUrl + 'palabraEnJuego', { responseType: 'json' });
   }
-
 }

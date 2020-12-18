@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Ahorcado, Resultado } from 'src/app/model/ahorcado';
 import { AhorcadoService } from 'src/app/services/ahorcado.service';
@@ -9,7 +9,7 @@ import { AhorcadoService } from 'src/app/services/ahorcado.service';
   styleUrls: ['./ahorcado-letra.component.scss']
 })
 export class AhorcadoLetraComponent implements OnInit {
-
+  @Input() flagCanPlay: boolean;
   @Output() flagSubmitChange = new EventEmitter<number>();
   flagSubmit = false;
   reload = 0;
@@ -25,6 +25,10 @@ export class AhorcadoLetraComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+  }
+  ngOnChanges(){
+    console.log('flagCanPlay', this.flagCanPlay);
+
   }
   initForm(): void {
     this.ahorcadoForm = new FormGroup({
